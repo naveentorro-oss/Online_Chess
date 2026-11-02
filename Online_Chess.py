@@ -109,7 +109,6 @@ def update_game_state(room_id, board, status="active", winner=None):
 # ---------------------------
 st.set_page_config(page_title="Online Chess", layout="centered")
 st.title("Online Chess Multiplayer ♟️")
-
 st.markdown("""
 <style>
 div[data-testid="stButton"] > button {
@@ -287,7 +286,7 @@ if st.session_state.room_id:
     # ---------------------------
     # Render board
     # ---------------------------
-    board = chess.Board(room["fen"])
+     board = chess.Board(room["fen"])
     for row in range(7, -1, -1):
         cols = st.columns(8)
         for col in range(8):
