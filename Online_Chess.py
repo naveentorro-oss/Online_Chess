@@ -109,23 +109,6 @@ def update_game_state(room_id, board, status="active", winner=None):
 # ---------------------------
 st.set_page_config(page_title="Online Chess", layout="centered")
 st.title("Online Chess Multiplayer ♟️")
-st.markdown("""
-<style>
-div[data-testid="stButton"] > button {
-    background: transparent !important;
-    border: none !important;
-    box-shadow: none !important;
-    color: #111 !important;
-    width: 100% !important;
-    min-height: 58px !important;
-    font-size: 30px !important;
-    border-radius: 10px !important;
-}
-div[data-testid="stButton"] > button:hover {
-    background: rgba(255,255,255,0.08) !important;
-}
-</style>
-""", unsafe_allow_html=True)
 
 # Auto refresh every 2 seconds
 if st_autorefresh is not None:
@@ -286,7 +269,7 @@ if st.session_state.room_id:
     # ---------------------------
     # Render board
     # ---------------------------
-     board = chess.Board(room["fen"])
+    board = chess.Board(room["fen"])
     for row in range(7, -1, -1):
         cols = st.columns(8)
         for col in range(8):
@@ -296,23 +279,7 @@ if st.session_state.room_id:
             is_selected = st.session_state.selected_square == square_idx
             btn_type = "primary" if is_selected else "secondary"
 
-            square_color = "#f0d9b5" if (row + col) % 2 == 0 else "#b58863"
-
             with cols[col]:
-                st.markdown(
-                    f"""
-                    <div style="
-                        background:{square_color};
-                        padding: 6px;
-                        border-radius: 10px;
-                        display: flex;
-                        justify-content: center;
-                        align-items: center;
-                    ">
-                    """,
-                    unsafe_allow_html=True,
-                )
-
                 st.button(
                     label,
                     key=f"sq_{st.session_state.room_id}_{square_idx}",
@@ -322,8 +289,6 @@ if st.session_state.room_id:
                     args=(square_idx,),
                     disabled=(room["status"] == "finished" or room["turn"] != player_color)
                 )
-
-                st.markdown("</div>", unsafe_allow_html=True)
 
     # Sidebar controls
     st.sidebar.markdown("---")
